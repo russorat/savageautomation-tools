@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}Savage Automation Tools{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+{% block content %}
+<div class="jumbotron">
+  <div class="container">
+    <h2>Take your scripting further.</h2>
+    <p>Unleash the true power of scripts with these additional tools.</p>
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col-md-4">
+
+    </div>
+    <div class="col-md-4">
+      <h2></h2>
+      <p></p>
+   </div>
+    <div class="col-md-4">
+      <h2>Sign In to Access</h2>
+      <p>No registration needed. Just log in securely with your Google account and get started right now.</p>
+      <p>
+        <a href="{{login_link}}" role="button">
+          <img src="/static/images/google-signin-long/Red-signin-Long-base-44dp.png" style="max-width:70%" class="google-button"/>
+        </a>
+      </p>
+    </div>
+  </div>
+</div>
+<script>
+
+</script>
+{% endblock %}

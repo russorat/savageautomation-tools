@@ -1,0 +1,26 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="/">Savage Automation Tools</a>
+    </div>
+    <div id="navbar" class="collapse navbar-collapse navbar-right">
+      <ul class="nav navbar-nav">
+        {%if g.user%}
+          <li><a href="/help">Help</a></li>
+          <li><a href="{{g.logout_url}}">Log Out</a></li>
+        {% else %}
+          <!--li class="text-right">
+            <a href="{{login_link}}">
+              Sign in with Google
+            </a>
+          </li>
+          <li class="text-left">
+            <a href="{{login_link}}">
+              <img src="/static/images/google-signin-small/Red-signin-Small-base-44dp.png" style="max-width:40%" class="google-button-small"/>
+            </a>
+          </li-->
+        {% endif %}
+      </ul>
+    </div>
+  </div>
+</nav>

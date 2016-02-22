@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}Url Checker Details | Savage Automation Tools{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <p>
+        <a href="#" onclick='history.back();return false;' class="btn btn-primary">&lt; Back</a>
+      </p>
+    </div>
+  </div>
+  <table class="table table-striped">
+    <tr>
+      <th>Url Checked</th>
+      <th>Status Code</th>
+      <th>Reason</th>
+    </tr>
+    {% for u in details['data'] %}
+      <tr>
+        <td>
+          {{u.url}} <a target="_blank" href="{{u.url}}"><span class="glyphicon glyphicon-new-window"></span></a>
+        </td>
+        <td>
+          {{u.status_code}}
+        </td>
+        <td>
+          {{u.resp_body}}
+        </td>
+      </tr>
+    {% else %}
+    <tr>
+      <td colspan="3">
+        <h4 class='text-success'>
+          All your urls are looking good!
+        </h4>
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+</div>
+{% endblock %}

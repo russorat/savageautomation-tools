@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+{% block title %}Url Checker Dashboard | Savage Automation Tools{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-md-3">
+      <p>
+        <a href="{{url_for('members')}}" class="btn btn-primary">&lt; Back</a>
+      </p>
+    </div>
+    <div class="col-md-3">
+      <p>
+        <a href="{{url_for('install_url_tracking')}}" class="btn btn-info">Install AdWords Script</a>
+      </p>
+    </div>
+    <div class="col-md-6 text-right">
+      Show:
+      <a href="#" id="show-all" class="btn btn-info active" onclick="toggle(this);">All</a>
+      <a href="#" id="show-fail" class="btn btn-danger" onclick="toggle(this);">Failures Only</a>
+      <a href="#" id="show-success" class="btn btn-success" onclick="toggle(this);">Success Only</a>
+      <a href="#" id="show-pending" class="btn btn-info" onclick="toggle(this);">Pending Only</a>
+    </div>
+  </div>
+  <table class="table table-striped">
+    <tr>
+      <th>Batch Name</th>
+      <th>Total Urls</th>
+      <th>Successes</th>
+      <th>Failures</th>
+      <th>Status</th>
+    </tr>
+    {% for b in batches %}
+      {% if b.fail_cnt > 0 %}
+        {% set status = 'fail' %}
+      {% elif (b.success_cnt + b.fail_cnt < b.total_urls) %}
+        {% set status = 'pending' %}
+      {% else %}
+        {% set status = 'success' %}
+      {% endif %}
+      <tr class="{{status}}-row">
+        <td>
+          <a href="{{url_for('get_batch_details',batch_name=b.batch_name)}}">{{b.batch_name}}</a>
+        </td>
+        <td>
+          {{b.total_urls}}
+        </td>
+        <td>
+          <p class="text-success">{{b.success_cnt}}</p>
+        </td>
+        <td>
+          <p class="text-danger">{{b.fail_cnt}}</p>
+        </td>
+        <td>
+          {%if status == 'pending' %}
+          <p class="text-info">Pending <span class="glyphicon glyphicon-refresh spin"></span></p>
+          {% else %}
+            {% if status == 'fail' %}
+              <p class="text-danger">Completed <span class="glyphicon glyphicon-exclamation-sign"></span></p>
+            {% else %}
+              <p class="text-success">Completed <span class="glyphicon glyphicon-ok"></span></p>
+            {% endif %}
+          {% endif %}
+        </td>
+      </tr>
+    {% endfor %}
+  </table>
+</div>
+<script>
+  function toggle(elem) {
+    $('.fail-row').show();
+    $('.success-row').show();
+    $('.pending-row').show();
+    $('#show-all').removeClass('active');
+    $('#show-fail').removeClass('active');
+    $('#show-success').removeClass('active');
+    $('#show-pending').removeClass('active');
+    var the_id = $(elem).attr('id');
+    if(the_id == 'show-all') {
+      $('#show-all').addClass('active');
+    } else if(the_id == 'show-fail') {
+      $('.success-row').hide();
+      $('.pending-row').hide();
+      $('#show-fail').addClass('active');
+    } else if(the_id == 'show-success') {
+      $('.fail-row').hide();
+      $('.pending-row').hide();
+      $('#show-success').addClass('active');
+    } else if(the_id == 'show-pending') {
+      $('.fail-row').hide();
+      $('.success-row').hide();
+      $('#show-pending').addClass('active');
+    }
+  }
+  {% if show %}
+  $(function() {
+    toggle('#show-{{show}}');
+  });
+  {% endif %}
+</script>
+{% endblock %}

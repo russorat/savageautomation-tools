@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}Members Area | Savage Automation Tools{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+{% block content %}
+<div class="container">
+  <div class="page-header">
+    <h1>Members Area</h1>
+    <h4>
+      <p>
+        Your TOKEN_ID: <code>{{user.auth_token}}</code>
+      </p>
+      <p>
+        Your SECRET_ID: <code>{{user.secret_key}}</code>
+      </p>
+      <p>
+        <a href="/regenerate">Regenerate your credentials</a>.
+      </p>
+    </h4>
+  </div>
+  <div class="row">
+    <div class="col-md-4">
+      <h2><span class="glyphicon glyphicon-link" aria-hidden="true"></span> Url Checker</h2>
+      <p>Monitor all your AdWords urls without limits.</p>
+      <p>
+        <a class="btn btn-primary" href="{{url_for('url_checker_dashboard')}}" role="button">Setup Url Checking &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+      <h2></h2>
+      <p></p>
+   </div>
+ </div>
+</div>
+{% endblock %}
